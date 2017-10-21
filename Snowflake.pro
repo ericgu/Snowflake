@@ -1,4 +1,4 @@
-update=10/17/2017 5:17:05 PM
+update=10/21/2017 7:44:27 AM
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,7 +27,7 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=
+LibDir=D:/data/Electronics/kicad
 [eeschema/libraries]
 LibName1=power
 LibName2=device
