@@ -7,10 +7,12 @@ class AnimateDistance : public IAnimate
   public:
     virtual void UpdateColors(LedCollection* pLedCollection)
     {
+        delay(1);
+        
         _distance -= 1;
         if (_distance < 0)
         {
-            _distance = 32767;
+            _distance = 30000;
         }
 
         for (int i = 0; i < pLedCollection->Size; i++)

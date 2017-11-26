@@ -2,7 +2,8 @@ class Sparklers
 {
   private:
     int _threshold;
-    const int SparklerMax = 50;
+    const int SparklerMax = 250;
+    const int SparklerMin = 50;
     RgbColor _white;
     
   public:
@@ -27,7 +28,7 @@ class Sparklers
         int number = random(10000);
         if (led.Count == 0 && number > _threshold)
         {
-            led.Count = SparklerMax;
+            led.Count = random(SparklerMin, SparklerMax);
         }
     }
 };

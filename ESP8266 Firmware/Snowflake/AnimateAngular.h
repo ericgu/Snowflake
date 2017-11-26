@@ -7,6 +7,7 @@ class AnimateAngular : public IAnimate
   public:
     virtual void UpdateColors(LedCollection* pLedCollection)
     {
+        delay(1);
         _rotation += 1;
 
         for (int i = 0; i < pLedCollection->Size; i++)
