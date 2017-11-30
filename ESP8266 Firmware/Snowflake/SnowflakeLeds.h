@@ -32,7 +32,7 @@ class SnowflakeLeds
         CreateArm(120);
 
         Led led = Led(0, 0);
-        led.Color = RgbColor(255, 255, 255);
+        led.EndColor = RgbColor(0, 0, 0);
         _pLedCollection->Add(led);
 
         CreateArm(180);

@@ -1,10 +1,16 @@
 class AnimateDistance : public IAnimate
 {
   private:
+    const int AnimationLoopCount = 10000;
     int _distance;
     Rainbow _rainbow = Rainbow(127);
 
   public:
+    virtual int GetAnimationLoopCount()
+    {
+      return AnimationLoopCount;
+    }
+      
     virtual void UpdateColors(LedCollection* pLedCollection)
     {
         delay(1);

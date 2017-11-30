@@ -7,9 +7,15 @@
 #include "IAnimate.h"
 #include "SnowflakeLeds.h"
 #include "Rainbow.h"
+#include "ColorGenerator.h"
+#include "LedIndexes.h"
+#include "IGenerateNumber.h"
+#include "GenerateTraverse.h"
+#include "GenerateBounce.h"
 #include "AnimateDistance.h"
 #include "AnimateAngular.h"
 #include "AnimateSparkle.h"
+#include "AnimateWorm.h"
 
 #define PIN 12
 
@@ -29,13 +35,10 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(55, PIN, NEO_GRB + NEO_KHZ800);
 // on a live circuit...if you must, connect GND first.
 
 SnowflakeLeds snowflakeLeds;
-IAnimate* pAnimate1;
-IAnimate* pAnimate2;
-IAnimate* pAnimate3;
-
-IAnimate* pAnimate;
+int _animationCount = 0;
+int _currentAnimationIndex = 0;
+IAnimate* _animations[5];
 int loopCount;
-const int AnimationLoopCount = 25000;
 
 volatile int toggle;
 
@@ -68,9 +71,13 @@ void setup() {
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
 
-  pAnimate1 = new AnimateDistance();
-  pAnimate2 = new AnimateAngular();
-  pAnimate3 = new AnimateSparkle();
+  _animations[_animationCount++] = new AnimateAngular();
+  _animations[_animationCount++] = new AnimateDistance();
+  _animations[_animationCount++] = new AnimateSparkle();
+  _animations[_animationCount++] = new AnimateWorm();
+
+  _currentAnimationIndex = _animationCount - 1;
+  
   loopCount = 0;
   //setup2();
 }
@@ -79,20 +86,10 @@ void nextAnimation()
 {
   if (loopCount == 0)
   {
-    if (pAnimate == pAnimate1)
-    {
-      pAnimate = pAnimate2;
-    }
-    else if (pAnimate == pAnimate2)
-    {
-      pAnimate = pAnimate3;
-    }
-    else
-    {
-      pAnimate = pAnimate1;
-    }
+    //delay(2000);
+    _currentAnimationIndex = (_currentAnimationIndex + 1) % _animationCount;
 
-    loopCount = AnimationLoopCount;
+    loopCount = _animations[_currentAnimationIndex]->GetAnimationLoopCount();
   }
   
   loopCount--;
@@ -101,7 +98,7 @@ void nextAnimation()
 void loop() {
   nextAnimation();
 
-  snowflakeLeds.UpdateColors(pAnimate);
+  snowflakeLeds.UpdateColors(_animations[_currentAnimationIndex]);
   snowflakeLeds.CopyToStrip(strip);
   strip.show();
 }

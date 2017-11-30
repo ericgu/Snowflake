@@ -13,22 +13,12 @@ class Sparklers
         _white = RgbColor(127, 127, 127);
     }
 
-    void UpdateSparkle(Led& led)
-    {
-        if (led.Count != 0)
-        {
-            led.Color = RgbColor::Blend(led.Color, _white, led.Count, SparklerMax);
-
-            led.Count--;
-        }
-    }
-
     void CreateRandom(Led& led)
     {
         int number = random(10000);
-        if (led.Count == 0 && number > _threshold)
+        if (!led.InBlend() && number > _threshold)
         {
-            led.Count = random(SparklerMin, SparklerMax);
+          led.BlendToEnd(_white, _white, SparklerMin); // end point will be replaced with the current color, so we just pass white...
         }
     }
 };

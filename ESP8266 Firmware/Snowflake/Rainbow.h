@@ -19,34 +19,37 @@ class Rainbow
         _purple =  RgbColor(intensity, 0, intensity);
     }
 
-    void SetRainbowColor(Led& led, int color, int percentAmount, int percentSize)
+    RgbColor GetRainbowColor(int color, int percentAmount, int percentSize)
     {
         switch (color)
         {
             case 0:
-                led.Color = RgbColor::Blend(_red, _yellow, percentAmount, percentSize);
-                break;
+                return RgbColor::Blend(_red, _yellow, percentAmount, percentSize);
 
             case 1:
-                led.Color = RgbColor::Blend(_yellow, _green, percentAmount, percentSize);
-                break;
+                return RgbColor::Blend(_yellow, _green, percentAmount, percentSize);
 
             case 2:
-                led.Color = RgbColor::Blend(_green, _cyan, percentAmount, percentSize);
-                break;
+                return RgbColor::Blend(_green, _cyan, percentAmount, percentSize);
 
             case 3:
-                led.Color = RgbColor::Blend(_cyan, _blue, percentAmount, percentSize);
-                break;
+                return RgbColor::Blend(_cyan, _blue, percentAmount, percentSize);
 
             case 4:
-                led.Color = RgbColor::Blend(_blue, _purple, percentAmount, percentSize);
-                break;
+                return RgbColor::Blend(_blue, _purple, percentAmount, percentSize);
 
             case 5:
-                led.Color = RgbColor::Blend(_purple, _red, percentAmount, percentSize);
-                break;
+                return RgbColor::Blend(_purple, _red, percentAmount, percentSize);
+
+            default:
+                Serial.print("GetRainbowColor ");
+                Serial.println(color);
         }
+    }
+    
+    void SetRainbowColor(Led& led, int color, int percentAmount, int percentSize)
+    {
+        led.Color = GetRainbowColor(color, percentAmount, percentSize);
     }
 
     void HandleRainbow(Led& led, int distance, int size)
