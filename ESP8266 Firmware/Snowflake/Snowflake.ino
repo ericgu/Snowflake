@@ -72,8 +72,8 @@ void setup() {
   strip.show(); // Initialize all pixels to 'off'
 
   _animations[_animationCount++] = new AnimateAngular();
-  _animations[_animationCount++] = new AnimateDistance();
   _animations[_animationCount++] = new AnimateSparkle();
+  _animations[_animationCount++] = new AnimateDistance();
   _animations[_animationCount++] = new AnimateWorm();
 
   _currentAnimationIndex = _animationCount - 1;
